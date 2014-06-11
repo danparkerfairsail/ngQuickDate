@@ -78,6 +78,10 @@ table.quickdate-calendar td {
 table.quickdate-calendar td:hover {
   cursor: pointer;
 }
+.quickdate-popup-quarters {
+  text-align: left;
+  display: block;
+}
 .quickdate-popup-footer {
   text-align: right;
   display: block;
@@ -178,6 +182,9 @@ table.quickdate-calendar td.is-today.disabled-date {
   font-weight: normal;
 }
 .quickdate-popup-footer {
+  margin: 3px 1px 0;
+}
+.quickdate-popup-quarters {
   margin: 3px 1px 0;
 }
 .quickdate-clear {

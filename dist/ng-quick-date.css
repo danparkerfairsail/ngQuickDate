@@ -78,6 +78,10 @@ table.quickdate-calendar td {
 table.quickdate-calendar td:hover {
   cursor: pointer;
 }
+.quickdate-popup-quarters {
+  text-align: left;
+  display: block;
+}
 .quickdate-popup-footer {
   text-align: right;
   display: block;

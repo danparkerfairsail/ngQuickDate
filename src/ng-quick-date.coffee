@@ -13,7 +13,7 @@ app = angular.module("ngQuickDate", [])
 app.provider "ngQuickDateDefaults", ->
   {
     options: {
-      dateFormat: 'M/d/yyyy'
+      dateFormat: 'd/M/yyyy'
       timeFormat: 'h:mm a'
       labelFormat: null
       placeholder: 'Click to Set Date'
@@ -315,6 +315,31 @@ app.directive "quickDatepicker", ['ngQuickDateDefaults', '$filter', '$sce', (ngQ
     scope.clear = ->
       scope.selectDate(null, true)
 
+    # Quarter buttons
+    scope.sq1 = ->
+      scope.selectDate(new Date(2014, 0, 1), false)
+
+    scope.sq2 = ->
+      scope.selectDate(new Date(2014, 3, 1), false)
+
+    scope.sq3 = ->
+      scope.selectDate(new Date(2014, 6, 1), false)
+
+    scope.sq4 = ->
+      scope.selectDate(new Date(2014, 9, 1), false)
+
+    scope.eq1 = ->
+      scope.selectDate(new Date(2014, 3, 0), false)
+
+    scope.eq2 = ->
+      scope.selectDate(new Date(2014, 6, 0), false)
+
+    scope.eq3 = ->
+      scope.selectDate(new Date(2014, 9, 0), false)
+
+    scope.eq4 = ->
+      scope.selectDate(new Date(2014, 12, 0), false)
+
     initialize()
 
   # TEMPLATE
@@ -351,6 +376,20 @@ app.directive "quickDatepicker", ['ngQuickDateDefaults', '$filter', '$sce', (ngQ
                     </tr>
                   </tbody>
                 </table>
+                <div class='quickdate-popup-quickdate-popup-quarters'>
+                  Start
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq1()'>Q1</a>
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq2()'>Q2</a>
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq3()'>Q3</a>
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq4()'>Q4</a>
+                </div>
+                <div class='quickdate-popup-quickdate-popup-quarters'>
+                  End
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq1()'>Q1</a>
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq2()'>Q2</a>
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq3()'>Q3</a>
+                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq4()'>Q4</a>
+                </div>
                 <div class='quickdate-popup-footer'>
                   <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='clear()'>Clear</a>
                 </div>
