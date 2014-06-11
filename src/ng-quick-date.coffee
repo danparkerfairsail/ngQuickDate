@@ -22,11 +22,23 @@ app.provider "ngQuickDateDefaults", ->
       closeButtonHtml: '&times;'
       nextLinkHtml: 'Next &rarr;'
       prevLinkHtml: '&larr; Prev'
-      disableTimepicker: false
+      disableTimepicker: true
       disableClearButton: false
+      disableQuarterButtons: true
       defaultTime: null
       dayAbbreviations: ["Su", "M", "Tu", "W", "Th", "F", "Sa"],
-      dateFilter: null
+      dateFilter: null,
+      quarterDates: {
+        sq1: new Date(new Date().getFullYear(), 0, 1),
+        sq2: new Date(new Date().getFullYear(), 3, 1),
+        sq3: new Date(new Date().getFullYear(), 6, 1),
+        sq4: new Date(new Date().getFullYear(), 9, 1),
+        eq1: new Date(new Date().getFullYear(), 3, 0),
+        eq2: new Date(new Date().getFullYear(), 6, 0),
+        eq3: new Date(new Date().getFullYear(), 9, 0),
+        eq4: new Date(new Date().getFullYear(), 12, 0)
+      }
+
       parseDateFunction: (str) ->
         seconds = Date.parse(str)
         if isNaN(seconds)
@@ -315,31 +327,6 @@ app.directive "quickDatepicker", ['ngQuickDateDefaults', '$filter', '$sce', (ngQ
     scope.clear = ->
       scope.selectDate(null, true)
 
-    # Quarter buttons
-    scope.sq1 = ->
-      scope.selectDate(new Date(2014, 0, 1), false)
-
-    scope.sq2 = ->
-      scope.selectDate(new Date(2014, 3, 1), false)
-
-    scope.sq3 = ->
-      scope.selectDate(new Date(2014, 6, 1), false)
-
-    scope.sq4 = ->
-      scope.selectDate(new Date(2014, 9, 1), false)
-
-    scope.eq1 = ->
-      scope.selectDate(new Date(2014, 3, 0), false)
-
-    scope.eq2 = ->
-      scope.selectDate(new Date(2014, 6, 0), false)
-
-    scope.eq3 = ->
-      scope.selectDate(new Date(2014, 9, 0), false)
-
-    scope.eq4 = ->
-      scope.selectDate(new Date(2014, 12, 0), false)
-
     initialize()
 
   # TEMPLATE
@@ -376,19 +363,19 @@ app.directive "quickDatepicker", ['ngQuickDateDefaults', '$filter', '$sce', (ngQ
                     </tr>
                   </tbody>
                 </table>
-                <div class='quickdate-popup-quickdate-popup-quarters'>
+                <div class='quickdate-popup-quickdate-popup-quarters' ng-hide='disableQuarterButtons'>
                   Start
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq1()'>Q1</a>
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq2()'>Q2</a>
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq3()'>Q3</a>
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='sq4()'>Q4</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.sq1, false)'>Q1</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.sq2, false)'>Q2</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.sq3, false)'>Q3</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.sq4, false)'>Q4</a>
                 </div>
-                <div class='quickdate-popup-quickdate-popup-quarters'>
+                <div class='quickdate-popup-quickdate-popup-quarters' ng-hide='disableQuarterButtons'>
                   End
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq1()'>Q1</a>
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq2()'>Q2</a>
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq3()'>Q3</a>
-                  <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='eq4()'>Q4</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.eq1, false)'>Q1</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.eq2, false)'>Q2</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.eq3, false)'>Q3</a>
+                  <a href='' class='quickdate-clear quickdate-popup-quarters' tabindex='-1' ng-click='selectDate(quarterDates.eq4, false)'>Q4</a>
                 </div>
                 <div class='quickdate-popup-footer'>
                   <a href='' class='quickdate-clear' tabindex='-1' ng-hide='disableClearButton' ng-click='clear()'>Clear</a>
